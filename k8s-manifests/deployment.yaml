@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-helloworld-deploy
+  labels:
+    app: python-helloworld-app
+  namespace: default 
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: python-helloworld-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: python-helloworld-app
+    spec:
+      containers:
+      - image: apthagowda/python-helloworld:latest
+        imagePullPolicy: IfNotPresent
+        name: python-helloworld
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+        ports:
+        - containerPort: 5000
