@@ -1,2 +1,5 @@
+.github/
+argocd-manifests/
+k8s-manifests/
 .gitignore
 README.md
